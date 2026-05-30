@@ -2,10 +2,34 @@
 
 Car Buddy is a full-stack web application designed to help users find their ideal car matches. It features a step-by-step recommendation wizard that scores and suggests cars from an inventory catalog based on user-defined preferences (such as budget, body style, fuel type, transmission, seating requirements, and safety priorities).
 
+We did not add users to add more cars and reviews due to time constraints. The goal was to build enough functionality with enough data to create an MVP.
+
 ## Tech Stack
 
 - **Frontend**: React (v19), Vite (v8), Tailwind CSS (v4), Radix UI, Lucide Icons.
 - **Backend**: Node.js, Express, Prisma ORM, PostgreSQL (via Neon Serverless DB).
+
+- Frontend Stack Philosophy: React allows us to build performant UIs meanwhile Shadcnui provides with accessible and extendable components and Tailwind lets us design quick.
+- Backend Stack Philosophy: Node.js and Express are mature server side javascript frameworks, PostgreSQL is free and readily available Database meanwhile Prisma ORM allows us to safely and quickly describe data models and perform CRUD.
+
+---
+
+## AI and Developer's role
+
+- I performed Initial setup, code review, architectural decisions, logic simplification decisions and steering, UI and functionality improvements.
+- AI performed quick building of the app as per requirements and directions.
+
+- **Where did they help?:** AI tools helped improving the workflow speed 10x and building an app without spendding much time on designing. It allows to quickly prototype and iterate over to improve.
+- **Where did they get in the way?:**  They build multiple files quickly and often miss out on requirements and write poor unmaintainable code. It takes time to review it all and understand how it works to ensure if the code is scablable and maintainable. They often create bugs which they miss until found by developer.
+
+---
+
+## If I had 4 hours
+
+- Allow users to add new car models that may not exist. (high priority)
+- Add User Authentication and allow users to create a persistent wishlist with full CRUD functionality. (high priority)
+- Allow users to compare their wishlist cars. (medium priority)
+- I would connect the health endpoint to the to frontend to show when our backend is down. (low priority)
 
 ---
 
