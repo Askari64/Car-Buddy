@@ -2,12 +2,20 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import carRoutes from "./routes/carRoutes.js";
+import { connectDB, disconnectDB } from "./db.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+connectDB();
+
 // Enable CORS so our frontend can connect
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    methods: ["GET", "POST", "OPTIONS"],
+  }),
+);
 
 // Parse JSON payloads
 app.use(express.json());
@@ -29,4 +37,34 @@ app.use((err, req, res, next) => {
 // Start the server
 app.listen(PORT, () => {
   console.log(`Car Buddy server listening on port ${PORT}`);
+});
+
+// ---------------------------------------------------------
+// Graceful Shutdown & Error Handling
+// ---------------------------------------------------------
+
+// Handle Unhandled Promise Rejections
+process.on("unhandledRejection", async (error) => {
+  console.error(`Unhandled Rejection: ${error}`);
+  server.close(async () => {
+    await disconnectDB();
+    process.exit(1);
+  });
+});
+
+//Handle Uncaught Exceptions
+process.on("uncaughtException", async (error) => {
+  console.error(`Unhandled Exception: ${error}`);
+  await disconnectDB();
+  process.exit(1);
+});
+
+// Graceful Shutdown
+
+process.on("SIGTERM", async () => {
+  console.log("Terminate Signal recieved. Shutting down gracefully");
+  server.close(async () => {
+    await disconnectDB();
+    process.exit(0);
+  });
 });
