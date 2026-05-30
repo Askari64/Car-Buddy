@@ -12,7 +12,7 @@ connectDB();
 // Enable CORS so our frontend can connect
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: [process.env.FRONTEND_URL, "http://localhost:5173"],
     methods: ["GET", "POST", "OPTIONS"],
   }),
 );
@@ -35,7 +35,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Car Buddy server listening on port ${PORT}`);
 });
 
