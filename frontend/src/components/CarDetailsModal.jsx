@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { X, Star, Shield, Info, Check, MessageSquare } from "lucide-react";
 
 export default function CarDetailsModal({ carId, onClose }) {
@@ -11,7 +11,8 @@ export default function CarDetailsModal({ carId, onClose }) {
     const fetchCarDetails = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`http://localhost:5000/api/cars/${carId}`);
+        const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+        const response = await fetch(`${apiUrl}/api/cars/${carId}`);
         const data = await response.json();
         setCar(data);
       } catch (error) {
@@ -27,12 +28,12 @@ export default function CarDetailsModal({ carId, onClose }) {
   if (!carId) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto no-scrollbar">
       {/* Modal Card */}
       <div className="relative w-full max-w-3xl rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col animate-scale-up">
         
         {/* Header Bar */}
-        <div className="flex items-center justify-between border-b border-slate-800 px-6 py-4 flex-shrink-0">
+        <div className="flex items-center justify-between border-b border-slate-800 px-6 py-4 shrink-0">
           <div className="flex items-center gap-2">
             <Info className="h-5 w-5 text-blue-400" />
             <h3 className="text-lg font-bold text-white">Full Specifications</h3>
@@ -56,11 +57,11 @@ export default function CarDetailsModal({ carId, onClose }) {
             <p className="text-slate-400">Failed to load car details.</p>
           </div>
         ) : (
-          <div className="overflow-y-auto flex-1 p-6 space-y-8">
+          <div className="overflow-y-auto no-scrollbar flex-1 p-6 space-y-8">
             
             {/* Visual Header */}
             <div className="flex flex-col md:flex-row gap-6 pb-6 border-b border-slate-850">
-              <div className="w-full md:w-64 h-40 bg-slate-950 rounded-xl overflow-hidden border border-slate-800 flex-shrink-0">
+              <div className="w-full md:w-64 h-40 bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shrink-0">
                 {car.imageUrl ? (
                   <img
                     src={car.imageUrl}
@@ -126,7 +127,7 @@ export default function CarDetailsModal({ carId, onClose }) {
                 </div>
                 <div className="p-3 rounded-xl bg-slate-950/40 border border-slate-850">
                   <span className="text-[10px] text-slate-500 uppercase block font-semibold">Safety Rating</span>
-                  <span className="text-xs font-bold text-emerald-400 mt-1 block flex items-center gap-1">
+                  <span className="text-xs font-bold text-emerald-400 mt-1 block items-center gap-1">
                     ★ {car.safetyRating} / 5.0
                   </span>
                 </div>
