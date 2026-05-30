@@ -5,8 +5,42 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "./generated/client"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+model Car {
+  id           String   @id @default(uuid())
+  make         String
+  model        String
+  variant      String
+  price        Float
+  year         Int
+  category     String   // SUV, Sedan, Hatchback, Truck, Coupe, etc.
+  transmission String   // Automatic, Manual
+  fuelType     String   // Electric, Hybrid, Gasoline, Diesel
+  mileage      Float    // mpg or kmpl
+  safetyRating Float    // out of 5
+  engine       String   // e.g., "2.0L 4-Cylinder"
+  horsepower   Int
+  torque       Int?
+  seats        Int
+  features     String[]
+  imageUrl     String?
+  reviews      Review[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  carId     String
+  car       Car      @relation(fields: [carId], references: [id], onDelete: Cascade)
+  author    String
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
 }
