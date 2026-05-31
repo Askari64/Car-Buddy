@@ -5,7 +5,7 @@ export default function QuizHeader({ step }) {
   const progress = Math.min(((step - 1) / 3) * 100, 100);
 
   return (
-    <div className="flex h-full flex-col justify-between gap-8 rounded-lg border border-slate-800 bg-slate-900/30 p-5 backdrop-blur-xl lg:p-6">
+    <div className="flex h-auto lg:h-full flex-col justify-between gap-4 lg:gap-8 rounded-lg border border-slate-800 bg-slate-900/30 p-5 backdrop-blur-xl lg:p-6">
       <div>
         <Badge variant="subtle" className="mb-4 gap-1.5 border-indigo-500/20 bg-indigo-500/10 text-indigo-300">
           <Sparkles className="h-3.5 w-3.5" />

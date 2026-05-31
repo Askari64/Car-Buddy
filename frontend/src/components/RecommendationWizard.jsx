@@ -50,17 +50,17 @@ export default function RecommendationWizard({ onOpenDetails, onToggleCompare, c
   };
 
   return (
-    <section className="h-full overflow-hidden px-4 py-5 sm:px-6 lg:px-8">
+    <section className="h-full overflow-y-auto no-scrollbar px-4 py-5 sm:px-6 lg:px-8">
       <div
         className={
           step < 5
-            ? "mx-auto grid h-full max-w-7xl min-h-0 gap-5 lg:grid-cols-[minmax(18rem,24rem)_minmax(0,1fr)]"
+            ? "mx-auto flex w-full max-w-7xl flex-col gap-5 lg:grid lg:grid-cols-[minmax(18rem,24rem)_minmax(0,1fr)]"
             : "flex h-full w-full min-h-0 flex-col"
         }
       >
         {step < 5 && <QuizHeader step={step} />}
 
-        <div className="flex min-h-0 flex-1 overflow-hidden">
+        <div className={step < 5 ? "flex flex-col" : "flex min-h-0 flex-1 overflow-hidden"}>
           {step === 1 && <BudgetStep {...stepProps} />}
           {step === 2 && <UseCaseStep {...stepProps} />}
           {step === 3 && <BodyStyleStep {...stepProps} />}
